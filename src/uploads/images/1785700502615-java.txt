@@ -1,0 +1,72 @@
+java
+
+ozgaruvchilar 3 taga bolinadi---var--let--const
+
+typeof-malumot turini aiqlash uchun
+
+Data types -- Malumot turlari 2ga bolinadi primitive-- no-primitive
+
+                           <PRIMITIVE>
+#NUMBER
+---sonlar-nan--infinity
+sonni-sozga bolganda (NAN) kelib chiqadi
+luboy sonni 0 ga bolganda -infiniti kelib chiqadi
+
+#STRING
+---matnlar--""--''--`` -> {js expression}
+
+#BOLEAN
+--true  !  false
+
+#BIGINT
+---number yetmagan joyiga shu ishlatiladi --7n
+
+#UNDERFINED
+---ozgaruvchi elon qilib qiymat berilmasa underfined paydo boladi
+
+#NULL
+---ozimiz belgilimz ozidan ozi payda bomidi masalan--a=null
+
+#SYMBOL
+---yagona ozgaruvchi yaratilganda ishlatilada va umuman ozgartirib bomaydi
+
+
+                              <NONPRIMITIVE><CONSTRACTIVE>
+
+#OBJECT
+
+#ARRAY
+
+#FUNCTION
+
+#MAP
+
+#SET
+
+#WEAKMAP
+
+#WEAKSET
+
+
+                            <OPERATORS>
+
+
+#ARIFMETIK
+  -,+,/,%,=,==,*,**,-=,+=,<,>,,!=,<=,>=
+   (/)-qoldiqli bolish
+   (%)-qoldiqsiz bolish
+   a++bittaga oshiradi
+   a--bitta ayiradi
+   +=ham bittaga oshiradi
+
+#LOGICAL
+   &&-va-and-yolgonga intiladi
+   !!-yoki-or
+    !-inkor-not 
+
+#FALSE QIYMATLAR
+
+   0,false,null,underfined,nan,"",infiniti
+
+
+

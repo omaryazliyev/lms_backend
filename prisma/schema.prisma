@@ -1,0 +1,179 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  SUPERADMIN
+  TEACHER
+  STUDENT
+  ASSISTANT
+}
+
+enum CourseLevel {
+  BEGINNER
+  ELEMENTERY
+  PRE_INTERMEDIATE
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum Answer {
+  variantA
+  variantB
+  variantC
+  variantD
+}
+
+model Users {
+  id        Int      @id @default(autoincrement())
+  full_name String
+  phone     String   @unique
+  password  String
+  email     String?
+  file      String?
+  role      Role
+  create_at DateTime @default(now())
+  update_at DateTime @updatedAt
+
+  mentorProfile MentorProfile[]
+  courses       Courses[]
+
+  @@map("users")
+}
+
+model MentorProfile {
+  id          Int      @id @default(autoincrement())
+  usersId     Int
+  experiense  Float?
+  job         String?
+  web_link    String?
+  description String?
+  fecebook    String?
+  telegram    String?
+  linkedin    String?
+  instagram   String?
+  github      String?
+  create_at   DateTime @default(now())
+  update_at   DateTime @updatedAt
+
+  users   Users     @relation(fields: [usersId], references: [id])
+  courses Courses[]
+
+  @@map("mentor_profile")
+}
+
+model Categories {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  create_at DateTime  @default(now())
+  update_at DateTime  @updatedAt
+  courses   Courses[]
+
+  @@map("categories")
+}
+
+model Courses {
+  id          Int         @id @default(autoincrement())
+  assistentId Int?
+  mentorId    Int
+  name        String      @unique
+  banner      String
+  intro_video String
+  description String
+  prise       Decimal
+  categoryId  Int
+  level       CourseLevel
+  create_at   DateTime    @default(now())
+  update_at   DateTime    @updatedAt
+
+  categories    Categories    @relation(fields: [categoryId], references: [id])
+  user          Users?        @relation(fields: [assistentId], references: [id])
+  mentorProfile MentorProfile @relation(fields: [mentorId], references: [id])
+  sections      Sections[]
+
+  @@map("courses")
+}
+
+model Sections {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  courseId  Int
+  create_at DateTime @default(now())
+  update_at DateTime @updatedAt
+
+  course  Courses   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons Lessons[]
+
+  @@map("section")
+}
+
+model Lessons {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  sectionId   Int
+  description String
+  file        String
+  create_at   DateTime    @default(now())
+  update_at   DateTime    @updatedAt
+  sections    Sections    @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  materials   Materials[]
+  homeworks   Homeworks[]
+
+  @@map("lessons")
+}
+
+model Materials {
+  id          Int            @id @default(autoincrement())
+  lessonId    Int
+  description String
+  create_at   DateTime       @default(now())
+  update_at   DateTime       @updatedAt
+  lessons     Lessons        @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  files       MaterialFile[]
+
+  @@map("materials")
+}
+
+model MaterialFile {
+  id         Int      @id @default(autoincrement())
+  materialId Int
+  file       String
+  create_at  DateTime @default(now())
+
+  material Materials @relation(fields: [materialId], references: [id], onDelete: Cascade)
+
+  @@map("material_file")
+}
+
+model Homeworks {
+  id          Int      @id @default(autoincrement())
+  lessonId    Int
+  description String
+  file        String?
+  create_at   DateTime @default(now())
+  update_at   DateTime @updatedAt
+  lessons     Lessons  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@map("homeworks")
+}
+
+model Exams {
+  id       Int    @id @default(autoincrement())
+  lessonId Int
+  question String
+  variantA String
+  variantB String
+  variantC String
+  variantD String
+  answer   Answer
+
+  create_at DateTime @default(now())
+  update_at DateTime @updatedAt
+
+  @@map("exams")
+}

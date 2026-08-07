@@ -1,0 +1,133 @@
+objectdan nusxa olish 
+
+split operatori orqali 
+
+object.assign orqali 
+
+const copy = JSON.parse(JSON.stringify(obj1));
+
+3. useRef----DOM elementga murojaat qilish yoki qiymatni saqlash uchun.
+
+useMemo qiymatni eslab qoladi (cache qiladi) va faqat kerak bo‘lganda qayta hisoblaydi. DATA - CATCHING QILADI 
+
+| Hook        | Nimani saqlaydi |
+| ----------- | --------------- |
+| useMemo     | qiymat (value)  |
+| useCallback | funksiya        |
+
+<!DOCTYPE> = brauzerga “qanday HTML ishlatayotganingni aytib beruvchi signal”
+
+HTML — bu web sahifaning skeleti (asosiy tuzilmasi). To‘liq nomi: HyperText Markup Language
+
+CSS — bu web sahifaning ko‘rinishini (designini) boshqaradigan til. To‘liq nomi: Cascading Style Sheets.
+
+Inline > Internal > External style berish yoli
+
+data-* — HTML elementiga ixtiyoriy ma'lumot yozish imkonini beruvchi maxsus atributlar. JavaScript orqali dataset xususiyati bilan o'qiladi.
+
+Box Model = elementning o‘lchami va joylashuvi qanday hisoblanishini belgilaydi
+
+Ikkalasi ham skriptni fonda yuklaydi, lekin ishga tushish vaqti farqli. defer — HTML to'liq parse bo'lgach ishlaydi, tartibni saqlaydi. async — yuklanishi bilanoq ishlaydi, tartib yo'q.
+
+src — resursni yuklaydi va element ichiga joylashtiradi (rasm, skript). href — havola yaratadi, lekin yuklamaydi (CSS, link). Brauzer src ni darhol yuklashni boshlaydi.
+
+Accessibility — saytni ko'zi ojiz va nogironlar uchun ham ishlashi. Screen reader va boshqa yordamchi texnologiyalar uchun ARIA atributlari qo'llaniladi.
+
+GET — ma'lumotni URL orqali yuboradi, ko'rinadi va bookmarklanadi. POST — request body orqali yuboradi, URL da ko'rinmaydi, parol/katta ma'lumotlar uchun ishlatiladi.
+
+iframe = boshqa web sahifani o‘zingizning sahifangiz ichida ko‘rsatish
+
+Flexbox — 1D (qator yoki ustun). Grid — 2D (qator VA ustun bir vaqtda). Komponent ichidagi hizalanish uchun Flex, sahifa layout uchun Grid.
+
+Pseudo-class (:) — elementning holati yoki pozitsiyasini bildiradi. Pseudo-element (::) — elementning bir qismini yoki soxta element yaratadi.
+
+CSS o'zgaruvchilari -- (ikki chiziq) bilan e'lon qilinadi, var() bilan ishlatiladi. Kaskad va meros orqali ishlaydi — JavaScript dan ham o'qish/yozish mumkin.
+
+transition — holat o'zgarishida silliq o'tish (A dan B ga). animation — kalit kadrlar (keyframes) bilan murakkab, takroriy animatsiyalar.
+
+Kaskad — bir elementga bir nechta qoidalar tegishli bo'lganda, qaysi biri qo'llanishini aniqlash tartibi. Ustuvorlik: !important > specificity > manba tartibi.
+
+px — mutlaq, em — ota elementning font-size iga nisbatan, rem — root (html) font-size iga nisbatan, % — ota elementga nisbatan, vw/vh — viewport ga nisbatan.
+
+Tailwind mobile-first yondashuv ishlatadi. Prefix siz klass barcha ekranlarda ishlaydi. sm:, md:, lg:, xl:, 2xl: prefikslari min-width media query ga mos keladi.
+
+Pointerni tushuntiring.   Pointer — bu xotiradagi boshqa bir o'zgaruvchining manzilini saqlovchi o'zgaruvchi
+
+static property va methodlar classning obyektlariga emas, classning o'ziga tegishli bo'ladi. Ularni new orqali yaratilgan obyekt orqali emas, class nomi orqali chaqiriladi. static metodlar odatda umumiy yordamchi funksiyalar (helper methods) yoki barcha obyektlar uchun umumiy ma'lumotlarni saqlashda ishlatiladi.
+
+
+Call, Apply, Bind methodlarini tushuntirib bering va ular o'rtasidagi farq
+  call, apply va bind funksiyaning this kontekstini o‘zgartirish uchun ishlatiladi. call va apply funksiyani darhol ishga tushiradi, farqi   shundaki call argumentlarni alohida, apply esa array ko‘rinishida qabul qiladi. bind esa funksiyani ishga tushirmaydi, balki yangi funksiya qaytaradi.
+
+
+Abstraksiya — obyektning murakkab ichki ishlash jarayonlarini yashirib, foydalanuvchiga faqat kerakli interfeysni taqdim etishdir. Bu kodni soddalashtiradi va foydalanishni osonlashtiradi.
+
+Primitive turlar qiymatning o'zini saqlaydi va nusxalanganda mustaqil bo'ladi. Reference turlar esa obyektning manzilini saqlaydi
+
+Promise 3 ta statega ega: Pending, Fulfilled va Rejected. Dastlab Pending holatda bo'ladi, resolve() chaqirilsa Fulfilled, reject() chaqirilsa Rejected holatiga o'tadi.
+
+Object bilan Map() o'rtasidagi farq,  Map kalit sifatida har qanday qiymatni qabul qiladi, Object esa asosan string yoki symbol kalitlar bilan ishlaydi.
+
+Class da constructor qachon ishga tushadi.  constructor — classdan yangi obyekt new operatori orqali yaratilgan paytda avtomatik ishga tushadigan maxsus metod. U obyektning boshlang'ich qiymatlarini o'rnatish uchun ishlatiladi.
+
+
+execution context ni tushuntiring?
+Execution Context 2 bosqichda ishlaydi:
+Creation Phase — JavaScript kodni birinchi o'qib chiqadi, o'zgaruvchilar va funksiyalar uchun xotiradan joy ajratadi hamda this ni aniqlaydi.
+Execution Phase — JavaScript kodni qatorma-qator bajaradi, qiymatlarni o'zlashtiradi va funksiyalarni chaqiradi.
+
+
+ReferenceError qachon sodir bo'ladi.
+ReferenceError JavaScript mavjud bo'lmagan yoki scope doirasidan tashqaridagi o'zgaruvchiga murojaat qilinganda yuz beradi. Shuningdek, let va const o'zgaruvchilariga initialization qilinishidan oldin murojaat qilinganda ham ReferenceError hosil bo'ladi.
+
+TypeError qachon sodir bo'ladi.
+TypeError qiymat mavjud bo'lsa ham, unga mos bo'lmagan amal bajarilganda yuz beradi. Masalan, stringni funksiya sifatida chaqirish, null yoki undefined dan property olish, yoki mavjud bo'lmagan metodni ishlatish TypeError keltirib chiqaradi.
+
+
+Asinxron va Sinxron dasturlashni tushuntirib bering
+Sinxron dasturlashda kod qatorma-qator bajariladi va har bir operatsiya tugamaguncha keyingisi boshlanmaydi. Asinxron dasturlashda esa uzoq davom etadigan operatsiyalar (API, fayl o‘qish, timerlar) fon rejimida bajariladi va dastur boshqa kodlarni ishlashda davom etadi. JavaScriptda asinxronlik Callback, Promise va Async/Await yordamida amalga oshiriladi.
+
+Arrayning slice va splice methodlarini asosiy farqi nimada.
+slice() arrayning bir qismini olib yangi array qaytaradi va original arrayni o'zgartirmaydi. splice() esa original arrayni o'zgartiradi, elementlarni qo'shish, o'chirish yoki almashtirish uchun ishlatiladi.
+
+
+Event Looping to’lliq tushuntiring.
+JavaScript Single Threaded til bo‘lib, bir vaqtning o‘zida bitta operatsiyani bajaradi. Asinxron operatsiyalar (setTimeout, fetch, DOM eventlar) Web API larda bajariladi. Ular tugagach Callback Queue yoki Microtask Queue ga tushadi. Event Loop Call Stack bo‘shashini kutadi va navbatdagi tasklarni Stack ga yuboradi. Muhim qoida: Microtask Queue (Promise, async/await) har doim Macrotask Queue (setTimeout, setInterval) dan oldin bajariladi.
+
+Mikro va makro tasklarni to’lliq tushuntiring
+JavaScriptda asinxron vazifalar ikki navbatga bo'linadi: Microtask Queue va Macrotask Queue. Promise.then, catch, finally, queueMicrotask va await dan keyingi kodlar Microtask Queue ga tushadi. setTimeout, setInterval va DOM eventlari esa Macrotask Queue ga tushadi. Event Loop Call Stack bo'shagandan keyin avval barcha Microtask larni bajaradi, so'ng Macrotask larni bajaradi. Shu sababli Promise callbacklari odatda setTimeout(..., 0) dan oldin ishlaydi.
+
+Undefined va null ni farqi
+undefined — o'zgaruvchiga qiymat berilmaganda JavaScript tomonidan avtomatik beriladigan qiymat. null esa dasturchi tomonidan ataylab "bo'sh qiymat" sifatida beriladi. undefined ning turi undefined, null esa tarixiy sababga ko'ra object turiga ega. undefined == null true, lekin undefined === null false bo'ladi.
+
+
+?? operator ini ishlashini tushuntirib bering
+?? (Nullish Coalescing Operator) chap tomondagi qiymat null yoki undefined bo'lsa, o'ng tomondagi qiymatni qaytaradi. || operatoridan farqli ravishda 0, false va "" kabi qiymatlarni noto'g'ri ravishda almashtirmaydi. Shu sababli default qiymat berishda ko'pincha ?? ishlatish tavsiya etiladi.
+
+
+Funksiya turlarını  -------  Function Declaration , Function Expression, Arrow Function, Anonymous Function, IIFE va Constructor Function.
+
+
+Declaration va arrow funksiyalarni assay 2 ta farqini ayting
+Function Declaration hoisting bo‘ladi va o‘z this ga ega. Arrow Function esa hoisting qilinmaydi va o‘z this ga ega emas, u tashqi lexical scope this ni oladi.
+
+
+Arrayning 20 ta metodini sana bering
+JavaScript array metodlari 20+ dan ortiq bo‘lib, eng muhimlari: push, pop, shift, unshift, map, filter, reduce, forEach, find, findIndex, includes, indexOf, slice, splice, concat, sort, reverse, join, flat, every va some metodlaridir. Ular array ustida qo‘shish, o‘chirish, qidirish va transformatsiya qilish uchun ishlatiladi.
+
+Qanday qilib arrayga yang method qo’shamiz. Arrayga yangi method qo‘shish uchun Array.prototype ishlatiladi.
+
+
+Objecting 5 ta methodini sana bering
+Objectning eng ko‘p ishlatiladigan metodlari: Object.keys(), Object.values(), Object.entries(), Object.assign() va Object.hasOwn(). Ular objectdan ma’lumot olish, birlashtirish va tekshirish uchun ishlatiladi.
+
+OOP (Object-Oriented Programming) — bu dasturlash paradigmasi bo‘lib, unda kod obyektlar asosida quriladi.
+OOP — bu objectlar asosida dasturlash paradigmasi bo‘lib, unda kod real hayotdagi obyektlar sifatida model qilinadi. OOPning 4 ta asosiy prinsipi bor: Encapsulation, Abstraction, Inheritance va Polymorphism. Bu yondashuv kodni tartibli, qayta ishlatiladigan va boshqarilishi oson qiladi.
+
+OOP da abstraksiya nima? ------- Ichki murakkablikni yashirib, faqat kerakli funksiyani ko‘rsatish
+
+Getter va setter ni tushuntiring
+Getter — propertyni olish uchun ishlatiladigan maxsus method. Setter — propertyga qiymat berishni nazorat qilish uchun ishlatiladi. Ular yordamida biz encapsulation qilamiz, ya’ni ma’lumotni yashirib, unga kirish va o‘zgartirishni nazorat qilamiz.
+
+Browserdagi storegelar ni tushuntiring, localStorage, Cookie, session
+Browserda 3 ta asosiy storage bor: localStorage, sessionStorage va Cookie. localStorage ma’lumotni doimiy saqlaydi, sessionStorage faqat tab yopilguncha saqlaydi, Cookie esa kichik ma’lumotlarni saqlab, serverga har request bilan yuboradi.
