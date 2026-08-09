@@ -20,8 +20,7 @@ services:
       - "8080:8080"
     environment:
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-bizler}?schema=public
-      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-my_super_secret_access_key}
-      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-my_super_secret_refresh_key}
+      SECRET_KEY: ${SECRET_KEY:-my_super_secret_key_123}
       USER_PASSWORD: ${USER_PASSWORD}
       PORT: 8080
     depends_on:
