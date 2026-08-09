@@ -1,0 +1,48 @@
+name: Deploy LMS Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy over SSH and run Docker Compose
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+
+          script: |
+            echo "🚀 Starting deployment..."
+
+            cd /home/ubuntu
+
+            if [ ! -d "lms_backend/.git" ]; then
+              echo "📥 Cloning repository..."
+              git clone https://github.com/omaryazliyev2004-op/lms_backend.git
+            else
+              echo "🔄 Pulling latest changes..."
+              cd lms_backend
+              git pull origin main
+            fi
+
+            cd /home/ubuntu/lms_backend
+
+            echo "🛑 Stopping old containers..."
+            docker compose down
+
+            echo "🔨 Building Docker images..."
+            docker compose build
+
+            echo "🚀 Starting containers..."
+            docker compose up -d
+
+            echo "📊 Container status:"
+            docker compose ps
+
+            echo "✅ Deployment completed!"
