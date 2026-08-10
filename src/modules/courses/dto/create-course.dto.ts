@@ -4,37 +4,37 @@ import { Type } from "class-transformer";
 import { IsEnum, IsNumber, IsOptional, IsString, Min, MinLength } from "class-validator";
 
 export class CreateCourseDto {
-    @ApiProperty({ example: "Frontend dasturlash kursi" })
+    @ApiProperty()
     @IsString()
     @MinLength(3)
     name!: string;
 
-    @ApiProperty({ example: "Bu kurs frontend dasturlashni o'rgatadi" })
+    @ApiProperty()
     @IsString()
     @MinLength(5)
     description!: string;
 
-    @ApiProperty({ example: 299000 })
+    @ApiProperty()
     @Type(() => Number)
     @IsNumber()
     @Min(0)
     prise!: number;
 
-    @ApiProperty({ enum: CourseLevel, example: CourseLevel.BEGINNER })
+    @ApiProperty({ enum: CourseLevel })
     @IsEnum(CourseLevel)
     level!: CourseLevel;
 
-    @ApiProperty({ example: 1, description: "MentorProfile.id" })
+    @ApiProperty()
     @Type(() => Number)
     @IsNumber()
     mentorId!: number;
 
-    @ApiProperty({ example: 1, description: "Categories.id" })
+    @ApiProperty()
     @Type(() => Number)
     @IsNumber()
     categoryId!: number;
 
-    @ApiPropertyOptional({ example: 1, description: "Users.id (Assistant)" })
+    @ApiPropertyOptional()
     @IsOptional()
     @Type(() => Number)
     @IsNumber()

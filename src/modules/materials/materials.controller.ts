@@ -37,7 +37,7 @@ export class MaterialsController {
     constructor(private readonly materialsService: MaterialsService) {}
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Create Material - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -82,21 +82,21 @@ export class MaterialsController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get all Materials" })
+    @ApiOperation({  })
     @Get()
     findAllMaterials() {
         return this.materialsService.findAllMaterials();
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get one Material by ID" })
+    @ApiOperation({ })
     @Get(":id")
     findOneMaterial(@Param("id", ParseIntPipe) id: number) {
         return this.materialsService.findOneMaterial(id);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Update Material - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -140,14 +140,14 @@ export class MaterialsController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Delete Material - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Delete(":id")
     deleteMaterial(@Param("id", ParseIntPipe) id: number) {
         return this.materialsService.deleteMaterial(id);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Delete one Material File by ID - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Delete("file/:fileId")
     deleteMaterialFile(@Param("fileId", ParseIntPipe) fileId: number) {
         return this.materialsService.deleteMaterialFile(fileId);

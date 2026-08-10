@@ -4,7 +4,7 @@ import { Type } from "class-transformer";
 import { IsEnum, IsNumber, IsString, MinLength } from "class-validator";
 
 export class CreateExamDto {
-    @ApiProperty({ example: 1, description: "Qaysi darsga tegishliligi (lessonId)" })
+    @ApiProperty()
     @Type(() => Number)
     @IsNumber()
     lessonId!: number;

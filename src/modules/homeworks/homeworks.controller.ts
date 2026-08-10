@@ -84,14 +84,14 @@ export class HomeworksController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get one Homework by ID" })
+    @ApiOperation({ })
     @Get(":id")
     findOneHomework(@Param("id", ParseIntPipe) id: number) {
         return this.homeworksService.findOneHomework(id);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Update Homework - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` - ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -131,7 +131,7 @@ export class HomeworksController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Delete Homework - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` - ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Delete(":id")
     deleteHomework(@Param("id", ParseIntPipe) id: number) {
         return this.homeworksService.deleteHomework(id);

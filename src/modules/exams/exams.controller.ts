@@ -26,28 +26,28 @@ export class ExamsController {
     constructor(private readonly examsService: ExamsService) {}
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Create Exam Question - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Post()
     createExam(@Body() payload: CreateExamDto) {
         return this.examsService.createExam(payload);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get all Exam Questions" })
+    @ApiOperation({  })
     @Get()
     findAllExams() {
         return this.examsService.findAllExams();
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get one Exam Question by ID" })
+    @ApiOperation({  })
     @Get(":id")
     findOneExam(@Param("id", ParseIntPipe) id: number) {
         return this.examsService.findOneExam(id);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Update Exam Question - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Patch(":id")
     updateExam(
         @Param("id", ParseIntPipe) id: number,
@@ -57,7 +57,7 @@ export class ExamsController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Delete Exam Question - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Delete(":id")
     deleteExam(@Param("id", ParseIntPipe) id: number) {
         return this.examsService.deleteExam(id);

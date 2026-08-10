@@ -37,7 +37,7 @@ export class LessonsController {
     constructor(private readonly lessonsService: LessonsService) {}
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Create Lesson - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` - ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -78,14 +78,14 @@ export class LessonsController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get all Lessons" })
+    @ApiOperation({ })
     @Get()
     findAllLessons() {
         return this.lessonsService.findAllLessons();
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get one Lesson by ID" })
+    @ApiOperation({ })
     @Get(":id")
     findOneLesson(@Param("id", ParseIntPipe) id: number) {
         return this.lessonsService.findOneLesson(id);
@@ -133,7 +133,7 @@ export class LessonsController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Delete Lesson - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Delete(":id")
     deleteLesson(@Param("id", ParseIntPipe) id: number) {
         return this.lessonsService.deleteLesson(id);

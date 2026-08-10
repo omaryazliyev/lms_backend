@@ -52,7 +52,7 @@ export class CoursesController {
     constructor(private readonly coursesService: CoursesService) {}
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Create Course - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -93,7 +93,7 @@ export class CoursesController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get all Courses" })
+    @ApiOperation({})
     @Get()
     findAllCourses() {
         return this.coursesService.findAllCourses();
@@ -107,7 +107,7 @@ export class CoursesController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Update Course - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -149,7 +149,7 @@ export class CoursesController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Delete Course - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Delete(":id")
     deleteCourse(@Param("id", ParseIntPipe) id: number) {
         return this.coursesService.deleteCourse(id);
