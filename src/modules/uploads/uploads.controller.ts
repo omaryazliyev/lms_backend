@@ -3,6 +3,9 @@ import type { Response } from "express";
 import { join } from "path";
 import * as fs from "fs";
 
+import { ApiExcludeController } from "@nestjs/swagger";
+
+@ApiExcludeController()
 @Controller("uploads")
 export class UploadsController {
     @Get(":type/:filename")
