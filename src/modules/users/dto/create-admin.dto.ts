@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger"
-import { IsEmail, IsMobilePhone, IsString, MaxLength, MinLength } from "class-validator"
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger"
+import { IsEmail, IsMobilePhone, IsOptional, IsString, MaxLength, MinLength } from "class-validator"
 
 
 export class CreateAdminDto {
@@ -13,9 +13,10 @@ export class CreateAdminDto {
     @IsMobilePhone()
     phone!:string
 
-    @ApiProperty()
+    @ApiPropertyOptional()
+    @IsOptional()
     @IsEmail()
-    email!:string
+    email?:string
 
     @ApiProperty()
     @IsString()
