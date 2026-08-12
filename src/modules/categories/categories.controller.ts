@@ -26,28 +26,28 @@ export class CategoriesController {
     constructor(private readonly categoriesService: CategoriesService) {}
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Create Category - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Post()
     createCategory(@Body() payload: CreateCategoryDto) {
         return this.categoriesService.createCategory(payload);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get all Categories" })
+    @ApiOperation({})
     @Get()
     findAllCategories() {
         return this.categoriesService.findAllCategories();
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get one Category by ID" })
+    @ApiOperation({})
     @Get(":id")
     findOneCategory(@Param("id", ParseIntPipe) id: number) {
         return this.categoriesService.findOneCategory(id);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Update Category - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Patch(":id")
     updateCategory(
         @Param("id", ParseIntPipe) id: number,
@@ -57,7 +57,7 @@ export class CategoriesController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Delete Category - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Delete(":id")
     deleteCategory(@Param("id", ParseIntPipe) id: number) {
         return this.categoriesService.deleteCategory(id);

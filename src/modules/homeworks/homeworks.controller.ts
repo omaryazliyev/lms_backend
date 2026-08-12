@@ -37,7 +37,7 @@ export class HomeworksController {
     constructor(private readonly homeworksService: HomeworksService) {}
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Create Homework - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -77,7 +77,7 @@ export class HomeworksController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get all Homeworks" })
+    @ApiOperation({})
     @Get()
     findAllHomeworks() {
         return this.homeworksService.findAllHomeworks();

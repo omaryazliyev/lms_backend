@@ -26,28 +26,28 @@ export class SectionsController {
     constructor(private readonly sectionsService: SectionsService) {}
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Create Section - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Post()
     createSection(@Body() payload: CreateSectionDto) {
         return this.sectionsService.createSection(payload);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get all Sections" })
+    @ApiOperation({})
     @Get()
     findAllSections() {
         return this.sectionsService.findAllSections();
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get one Section by ID" })
+    @ApiOperation({})
     @Get(":id")
     findOneSection(@Param("id", ParseIntPipe) id: number) {
         return this.sectionsService.findOneSection(id);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Update Section - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Patch(":id")
     updateSection(
         @Param("id", ParseIntPipe) id: number,
@@ -57,7 +57,7 @@ export class SectionsController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Delete Section - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Delete(":id")
     deleteSection(@Param("id", ParseIntPipe) id: number) {
         return this.sectionsService.deleteSection(id);

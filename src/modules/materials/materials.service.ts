@@ -85,7 +85,6 @@ export class MaterialsService {
             },
         });
 
-        // Add new files if any are provided
         if (filenames && filenames.length > 0) {
             const fileData = filenames.map((f) => ({
                 materialId: id,
@@ -119,7 +118,6 @@ export class MaterialsService {
         };
     }
 
-    // Individual file deletion
     async deleteMaterialFile(fileId: number) {
         const file = await this.prisma.materialFile.findUnique({
             where: { id: fileId },

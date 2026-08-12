@@ -27,7 +27,6 @@ export class CoursesService {
             throw new ConflictException("Bu nomli kurs allaqachon mavjud!");
         }
 
-        // Mentor profil mavjudligini tekshiramiz
         const mentorProfile = await this.prisma.mentorProfile.findFirst({
             where: { id: payload.mentorId },
         });
@@ -35,7 +34,6 @@ export class CoursesService {
             throw new NotFoundException("Mentor topilmadi (mentorId)");
         }
 
-        // Kategoriya mavjudligini tekshiramiz
         const category = await this.prisma.categories.findFirst({
             where: { id: payload.categoryId },
         });
@@ -113,7 +111,6 @@ export class CoursesService {
             throw new NotFoundException("Kurs topilmadi!");
         }
 
-        // Agar ism o'zgarsa, takrorlanish tekshiruvi
         if (payload.name && payload.name !== existCourse.name) {
             const duplicate = await this.prisma.courses.findFirst({
                 where: { name: payload.name },

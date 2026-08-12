@@ -100,7 +100,7 @@ export class CoursesController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
-    @ApiOperation({ summary: "Get one Course by ID" })
+    @ApiOperation({})
     @Get(":id")
     findOneCourse(@Param("id", ParseIntPipe) id: number) {
         return this.coursesService.findOneCourse(id);

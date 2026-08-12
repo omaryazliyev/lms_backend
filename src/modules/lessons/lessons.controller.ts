@@ -92,7 +92,7 @@ export class LessonsController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `Update Lesson - ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
