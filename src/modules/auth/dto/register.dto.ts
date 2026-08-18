@@ -17,4 +17,8 @@ export class RegisterDto {
     @IsString()
     @MinLength(3)
     password!:string
+
+    @ApiProperty()
+    @IsString()
+    code!: string
 }

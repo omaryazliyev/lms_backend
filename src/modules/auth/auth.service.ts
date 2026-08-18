@@ -5,10 +5,15 @@ import { LoginDto } from "./dto/login.dto";
 import * as argon from "argon2";
 import { RegisterDto } from "./dto/register.dto";
 import { Role } from "@prisma/client";
+import { OtpService } from "../otp/otp.service";
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService, private readonly jwtService: JwtService) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+    private readonly otpService: OtpService
+  ) { }
 
   async login(dto: LoginDto) {
     const existUser = await this.prisma.users.findFirst({
@@ -87,6 +92,12 @@ export class AuthService {
 
 
   async register(dto: RegisterDto) {
+    // 1. Verify OTP first
+    const isOtpValid = this.otpService.verifyOtp(dto.phone, dto.code);
+    if (!isOtpValid) {
+      throw new UnauthorizedException("Tasdiqlash kodi noto'g'ri yoki vaqti tugagan!");
+    }
+
     const existUser = await this.prisma.users.findFirst({
       where: { phone: dto.phone },
     });
