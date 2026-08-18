@@ -44,4 +44,21 @@ export class BotUpdate {
       },
     );
   }
+
+  @On('text')
+  async onText(@Ctx() ctx: Context) {
+    await ctx.reply(
+      "Iltimos, telefon raqamingizni qo'lda yozmang! Pastdagi **📞 Kontaktni yuborish** tugmasi orqali jo'nating.",
+      {
+        parse_mode: 'Markdown',
+        reply_markup: {
+          keyboard: [
+            [{ text: "📞 Kontaktni yuborish", request_contact: true }],
+          ],
+          resize_keyboard: true,
+          one_time_keyboard: true,
+        },
+      }
+    );
+  }
 }
