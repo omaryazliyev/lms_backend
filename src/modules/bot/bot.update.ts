@@ -28,9 +28,8 @@ export class BotUpdate {
     const contact = message.contact;
     let phone = contact.phone_number;
 
-    if (!phone.startsWith('+')) {
-      phone = '+' + phone;
-    }
+    // Normalize: remove all non-digit chars, then add + prefix
+    phone = '+' + phone.replace(/[^\d]/g, '');
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     

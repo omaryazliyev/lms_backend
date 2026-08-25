@@ -92,8 +92,11 @@ export class AuthService {
 
 
   async register(dto: RegisterDto) {
-    // 1. Verify OTP first
-    const isOtpValid = this.otpService.verifyOtp(dto.phone, dto.code);
+    // 1. Normalize phone: ensure format is always +998XXXXXXXXX
+    const normalizedPhone = '+' + dto.phone.replace(/[^\d]/g, '');
+    
+    // 2. Verify OTP first
+    const isOtpValid = this.otpService.verifyOtp(normalizedPhone, dto.code);
     if (!isOtpValid) {
       throw new UnauthorizedException("Tasdiqlash kodi noto'g'ri yoki vaqti tugagan!");
     }
