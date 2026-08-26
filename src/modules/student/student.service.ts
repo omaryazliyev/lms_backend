@@ -13,7 +13,7 @@ export class StudentService {
             where: { role: Role.STUDENT },
             include: {
                 course: {
-                    select: { id: true, name: true }
+                    select: { id: true, name: true, prise: true }
                 }
             }
         });
