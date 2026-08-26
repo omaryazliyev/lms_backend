@@ -52,6 +52,7 @@ export class CoursesService {
                 mentorId: payload.mentorId,
                 categoryId: payload.categoryId,
                 assistentId: payload.assistentId || null,
+                isActive: false, // default nofaol
             },
         });
 
@@ -61,8 +62,25 @@ export class CoursesService {
         };
     }
 
+    // Admin uchun: barcha kurslar (faol va nofaol)
     async findAllCourses() {
         return this.prisma.courses.findMany({
+            include: {
+                categories: true,
+                mentorProfile: {
+                    include: { users: true },
+                },
+                user: true,
+                sections: true,
+            },
+            orderBy: { create_at: "desc" },
+        });
+    }
+
+    // Public uchun: faqat faol kurslar
+    async findActiveCourses() {
+        return this.prisma.courses.findMany({
+            where: { isActive: true },
             include: {
                 categories: true,
                 mentorProfile: {
@@ -132,6 +150,25 @@ export class CoursesService {
         return {
             success: true,
             message: "Kurs muvaffaqiyatli yangilandi!",
+        };
+    }
+
+    // Kursni faol/nofaol qilish
+    async toggleActive(id: number) {
+        const course = await this.prisma.courses.findUnique({ where: { id } });
+        if (!course) throw new NotFoundException("Kurs topilmadi!");
+
+        const updated = await this.prisma.courses.update({
+            where: { id },
+            data: { isActive: !course.isActive },
+        });
+
+        return {
+            success: true,
+            isActive: updated.isActive,
+            message: updated.isActive
+                ? "Kurs faollashtirildi!"
+                : "Kurs nofaol qilindi!",
         };
     }
 

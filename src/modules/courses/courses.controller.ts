@@ -52,7 +52,7 @@ export class CoursesController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN} - Kurs yaratish` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -92,22 +92,43 @@ export class CoursesController {
         );
     }
 
-    @ApiOperation({})
-    @Get()
+    // Admin: barcha kurslar (faol + nofaol)
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(Role.SUPERADMIN, Role.ADMIN)
+    @ApiOperation({ summary: "Admin - barcha kurslar (faol va nofaol)" })
+    @Get("admin/all")
     findAllCourses() {
         return this.coursesService.findAllCourses();
     }
 
-    @ApiOperation({})
+    // Public: faqat faol kurslar
+    @ApiOperation({ summary: "Public - faqat faol kurslar" })
+    @Get()
+    findActiveCourses() {
+        return this.coursesService.findActiveCourses();
+    }
+
+    @ApiOperation({ summary: "Kursni ID bo'yicha ko'rish" })
     @Get(":id")
     findOneCourse(@Param("id", ParseIntPipe) id: number) {
         return this.coursesService.findOneCourse(id);
     }
 
+    // Kursni faol/nofaol qilish (toggle)
     @ApiBearerAuth()
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: "Kursni faol/nofaol qilish (toggle)" })
+    @Patch(":id/toggle-active")
+    toggleActive(@Param("id", ParseIntPipe) id: number) {
+        return this.coursesService.toggleActive(id);
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(Role.SUPERADMIN, Role.ADMIN)
+    @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN} - Kursni tahrirlash` })
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {
@@ -120,6 +141,7 @@ export class CoursesController {
                 mentorId: { type: "number" },
                 categoryId: { type: "number" },
                 assistentId: { type: "number" },
+                isActive: { type: "boolean" },
                 banner: { format: "binary", type: "string" },
                 intro_video: { format: "binary", type: "string" },
             },
@@ -151,7 +173,7 @@ export class CoursesController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(Role.SUPERADMIN, Role.ADMIN)
-    @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
+    @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN} - Kursni o'chirish` })
     @Delete(":id")
     deleteCourse(@Param("id", ParseIntPipe) id: number) {
         return this.coursesService.deleteCourse(id);
