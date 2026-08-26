@@ -45,12 +45,12 @@ const courseStorage = diskStorage({
 });
 
 @ApiTags("Courses")
-@ApiBearerAuth()
-@UseGuards(AuthGuard, RolesGuard)
 @Controller("courses")
 export class CoursesController {
     constructor(private readonly coursesService: CoursesService) {}
 
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard, RolesGuard)
     @Roles(Role.SUPERADMIN, Role.ADMIN)
     @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
@@ -92,20 +92,20 @@ export class CoursesController {
         );
     }
 
-    @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
     @ApiOperation({})
     @Get()
     findAllCourses() {
         return this.coursesService.findAllCourses();
     }
 
-    @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER, Role.STUDENT, Role.ASSISTANT)
     @ApiOperation({})
     @Get(":id")
     findOneCourse(@Param("id", ParseIntPipe) id: number) {
         return this.coursesService.findOneCourse(id);
     }
 
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard, RolesGuard)
     @Roles(Role.SUPERADMIN, Role.ADMIN)
     @ApiOperation({ summary: `${Role.SUPERADMIN} ${Role.ADMIN}` })
     @ApiConsumes("multipart/form-data")
@@ -148,6 +148,8 @@ export class CoursesController {
         );
     }
 
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard, RolesGuard)
     @Roles(Role.SUPERADMIN, Role.ADMIN)
     @ApiOperation({ summary: ` ${Role.SUPERADMIN} ${Role.ADMIN}` })
     @Delete(":id")
