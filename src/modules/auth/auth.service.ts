@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException, ForbiddenException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "src/core/database/prisma.service";
 import { LoginDto } from "./dto/login.dto";
@@ -28,6 +28,11 @@ export class AuthService {
 
     if (!isPasswordValid) {
       throw new UnauthorizedException("User not found with this phone or password");
+    }
+
+    // To'lov holatini tekshirish
+    if (existUser.role === Role.STUDENT && !existUser.isPaid) {
+      throw new ForbiddenException("To'lovingiz tasdiqlanmagan");
     }
 
     const payload = {

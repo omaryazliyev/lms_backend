@@ -30,6 +30,12 @@ export class StudentController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
+    @Patch(":id/toggle-paid")
+    togglePaid(@Param("id", ParseIntPipe) id: number) {
+        return this.studentService.togglePaid(id);
+    }
+
+    @Roles(Role.SUPERADMIN, Role.ADMIN)
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {

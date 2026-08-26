@@ -56,6 +56,27 @@ export class StudentService {
         };
     }
 
+    async togglePaid(id: number) {
+        const existStudent = await this.prisma.users.findFirst({
+            where: { id, role: Role.STUDENT }
+        });
+
+        if (!existStudent) {
+            throw new NotFoundException("Student not found with this id");
+        }
+
+        await this.prisma.users.update({
+            where: { id },
+            data: { isPaid: !existStudent.isPaid }
+        });
+
+        return {
+            success: true,
+            isPaid: !existStudent.isPaid,
+            message: !existStudent.isPaid ? "To'lov tasdiqlandi!" : "To'lov bekor qilindi!"
+        };
+    }
+
     async deleteStudent(id: number) {
         const existStudent = await this.prisma.users.findFirst({
             where: { id, role: Role.STUDENT }

@@ -37,6 +37,7 @@ model Users {
   email     String?
   file      String?
   role      Role
+  isPaid    Boolean  @default(false)
   create_at DateTime @default(now())
   update_at DateTime @updatedAt
 

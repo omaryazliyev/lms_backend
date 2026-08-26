@@ -47,8 +47,22 @@ async function main() {
   }
 
   try {
+    // 1. courses jadvaliga isActive qo'shish
     await client.query('ALTER TABLE courses ADD COLUMN IF NOT EXISTS "isActive" BOOLEAN NOT NULL DEFAULT false');
-    console.log('SUCCESS: isActive ustuni qoshildi!');
+    console.log('SUCCESS: courses.isActive ustuni qoshildi!');
+
+    // 2. users jadvaliga isPaid qo'shish
+    await client.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS "isPaid" BOOLEAN NOT NULL DEFAULT false');
+    console.log('SUCCESS: users.isPaid ustuni qoshildi!');
+
+    // 3. Admin, Teacher, Assistant larni avtomatik to'lov holatini true qilish
+    await client.query(`
+      UPDATE users 
+      SET "isPaid" = true 
+      WHERE role IN ('ADMIN', 'SUPERADMIN', 'TEACHER', 'ASSISTANT')
+    `);
+    console.log('SUCCESS: Barcha admin, mentor va assistentlarning isPaid qiymati true qilindi!');
+
   } catch (e) {
     console.error('ERROR:', e.message);
   } finally {
