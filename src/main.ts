@@ -23,6 +23,14 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, documentFactory);
 
 
+  // Telegraf Conflict yoki boshqa kutilmagan xatoliklar ilovani butunlay o'chirib yubormasligi uchun
+  process.on('uncaughtException', (err) => {
+    console.error('Kutilmagan xatolik (Uncaught Exception):', err.message);
+  });
+  process.on('unhandledRejection', (reason: any) => {
+    console.error('Kutilmagan rad etish (Unhandled Rejection):', reason?.message || reason);
+  });
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
