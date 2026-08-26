@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsString, MinLength, Matches } from "class-validator"
-
+import { IsString, MinLength, Matches, IsOptional, IsInt } from "class-validator"
+import { Type } from "class-transformer"
 
 export class RegisterDto {
 
@@ -22,4 +22,10 @@ export class RegisterDto {
     @ApiProperty()
     @IsString()
     code!: string
+
+    @ApiProperty({ required: false, example: 1 })
+    @IsOptional()
+    @IsInt()
+    @Type(() => Number)
+    courseId?: number
 }

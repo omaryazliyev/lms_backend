@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Req, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { StudentService } from "./student.service";
 import { UpdateStudentDto } from "./dto/update-student.dto";
 import { AuthGuard } from "src/common/guards/jwt-auth.guard";
@@ -21,6 +21,12 @@ export class StudentController {
     @Get()
     findAllStudents() {
         return this.studentService.findAllStudents();
+    }
+
+    @Roles(Role.STUDENT)
+    @Get("my-course")
+    getMyCourse(@Req() req: any) {
+        return this.studentService.getMyCourse(req.user?.id);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)

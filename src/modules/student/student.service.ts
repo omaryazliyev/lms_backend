@@ -95,4 +95,26 @@ export class StudentService {
             message: "Student deleted successfully!"
         };
     }
+    async getMyCourse(studentId: number) {
+        const student = await this.prisma.users.findFirst({
+            where: { id: studentId, role: Role.STUDENT },
+            include: {
+                course: {
+                    include: {
+                        category: true,
+                        mentorProfile: { include: { user: true } },
+                    }
+                }
+            }
+        });
+
+        if (!student) {
+            throw new NotFoundException("Student not found");
+        }
+
+        return {
+            success: true,
+            data: student.course ? [student.course] : []
+        };
+    }
 }

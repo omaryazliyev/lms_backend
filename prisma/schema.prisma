@@ -38,11 +38,13 @@ model Users {
   file      String?
   role      Role
   isPaid    Boolean  @default(false)
+  courseId  Int?
   create_at DateTime @default(now())
   update_at DateTime @updatedAt
 
   mentorProfile MentorProfile[]
   assistCourses Courses[]       @relation("CourseAssistent")
+  course        Courses?        @relation("StudentCourse", fields: [courseId], references: [id])
 
   @@map("users")
 }
@@ -97,6 +99,7 @@ model Courses {
   assistent     Users?        @relation("CourseAssistent", fields: [assistentId], references: [id])
   mentorProfile MentorProfile @relation(fields: [mentorId], references: [id])
   sections      Sections[]
+  students      Users[]       @relation("StudentCourse")
 
   @@map("courses")
 }

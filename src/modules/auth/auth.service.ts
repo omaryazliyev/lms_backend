@@ -121,7 +121,8 @@ export class AuthService {
         phone: dto.phone,
         password: hashedPassword,
         full_name: dto.full_name,
-        role:Role.STUDENT
+        role: Role.STUDENT,
+        courseId: dto.courseId ?? null,
       },
     });
 
