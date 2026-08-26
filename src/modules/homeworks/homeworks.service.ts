@@ -32,7 +32,7 @@ export class HomeworksService {
 
     async findAllHomeworks() {
         return this.prisma.homeworks.findMany({
-            include: { lessons: true },
+            include: { lesson: true },
             orderBy: { create_at: "asc" },
         });
     }
@@ -40,7 +40,7 @@ export class HomeworksService {
     async findOneHomework(id: number) {
         const homework = await this.prisma.homeworks.findUnique({
             where: { id },
-            include: { lessons: true },
+            include: { lesson: true },
         });
 
         if (!homework) {

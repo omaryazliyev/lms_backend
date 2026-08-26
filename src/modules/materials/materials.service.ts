@@ -41,7 +41,7 @@ export class MaterialsService {
 
     async findAllMaterials() {
         return this.prisma.materials.findMany({
-            include: { files: true, lessons: true },
+            include: { files: true, lesson: true },
             orderBy: { create_at: "asc" },
         });
     }
@@ -49,7 +49,7 @@ export class MaterialsService {
     async findOneMaterial(id: number) {
         const material = await this.prisma.materials.findUnique({
             where: { id },
-            include: { files: true, lessons: true },
+            include: { files: true, lesson: true },
         });
 
         if (!material) {

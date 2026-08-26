@@ -34,7 +34,7 @@ export class MentorService {
                         job: payload.job || null,
                         web_link: payload.web_link || null,
                         description: payload.description || null,
-                        fecebook: payload.fecebook || null,
+                        facebook: payload.fecebook || null,
                         telegram: payload.telegram || null,
                         linkedin: payload.linkedin || null,
                         instagram: payload.instagram || null,
@@ -53,14 +53,14 @@ export class MentorService {
     async findAllMentors() {
         return this.prisma.users.findMany({
             where: { role: Role.TEACHER },
-            include: { mentorProfile: true, courses: true }
+            include: { mentorProfile: true, assistCourses: true }
         });
     }
 
     async findOneMentor(id: number) {
         const mentor = await this.prisma.users.findFirst({
             where: { id, role: Role.TEACHER },
-            include: { mentorProfile: true, courses: true }
+            include: { mentorProfile: true, assistCourses: true }
         });
 
         if (!mentor) {

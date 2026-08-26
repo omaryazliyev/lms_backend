@@ -51,7 +51,7 @@ export class LessonsService {
     async findAllLessons() {
         return this.prisma.lessons.findMany({
             include: {
-                sections: {
+                section: {
                     include: { course: true },
                 },
                 materials: true,
@@ -65,7 +65,7 @@ export class LessonsService {
         const lesson = await this.prisma.lessons.findUnique({
             where: { id },
             include: {
-                sections: {
+                section: {
                     include: { course: true },
                 },
                 materials: { include: { files: true } },

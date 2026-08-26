@@ -28,7 +28,7 @@ export class AssistantService {
                 password: hashedPassword,
                 role: Role.ASSISTANT,
                 file: filename || null,
-                courses: payload.courseIds && payload.courseIds.length > 0 ? {
+                assistCourses: payload.courseIds && payload.courseIds.length > 0 ? {
                     connect: payload.courseIds.map(id => ({ id }))
                 } : undefined
             }
@@ -43,14 +43,14 @@ export class AssistantService {
     async findAllAssistants() {
         return this.prisma.users.findMany({
             where: { role: Role.ASSISTANT },
-            include: { courses: true }
+            include: { assistCourses: true }
         });
     }
 
     async findOneAssistant(id: number) {
         const assistant = await this.prisma.users.findFirst({
             where: { id, role: Role.ASSISTANT },
-            include: { courses: true }
+            include: { assistCourses: true }
         });
 
         if (!assistant) {
@@ -109,7 +109,7 @@ export class AssistantService {
         await this.prisma.users.update({
             where: { id },
             data: {
-                courses: {
+                assistCourses: {
                     set: []
                 }
             }
