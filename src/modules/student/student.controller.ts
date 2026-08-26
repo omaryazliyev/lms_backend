@@ -42,6 +42,15 @@ export class StudentController {
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)
+    @Patch(":id/assign-course")
+    assignCourse(
+        @Param("id", ParseIntPipe) id: number,
+        @Body("courseId") courseId: number | null
+    ) {
+        return this.studentService.assignCourse(id, courseId);
+    }
+
+    @Roles(Role.SUPERADMIN, Role.ADMIN)
     @ApiConsumes("multipart/form-data")
     @ApiBody({
         schema: {

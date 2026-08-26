@@ -10,7 +10,12 @@ export class StudentService {
 
     async findAllStudents() {
         return this.prisma.users.findMany({
-            where: { role: Role.STUDENT }
+            where: { role: Role.STUDENT },
+            include: {
+                course: {
+                    select: { id: true, name: true }
+                }
+            }
         });
     }
 
@@ -75,6 +80,20 @@ export class StudentService {
             isPaid: !existStudent.isPaid,
             message: !existStudent.isPaid ? "To'lov tasdiqlandi!" : "To'lov bekor qilindi!"
         };
+    }
+
+    async assignCourse(studentId: number, courseId: number | null) {
+        const student = await this.prisma.users.findFirst({
+            where: { id: studentId, role: Role.STUDENT }
+        });
+        if (!student) throw new NotFoundException("Student not found");
+
+        await this.prisma.users.update({
+            where: { id: studentId },
+            data: { courseId: courseId ?? null }
+        });
+
+        return { success: true, message: "Kurs muvaffaqiyatli belgilandi!" };
     }
 
     async deleteStudent(id: number) {
