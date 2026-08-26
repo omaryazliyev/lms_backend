@@ -42,7 +42,7 @@ model Users {
   update_at DateTime @updatedAt
 
   mentorProfile MentorProfile[]
-  courses       Courses[]
+  assistCourses Courses[]       @relation("CourseAssistent")
 
   @@map("users")
 }
@@ -54,7 +54,7 @@ model MentorProfile {
   job         String?
   web_link    String?
   description String?
-  fecebook    String?
+  facebook    String?
   telegram    String?
   linkedin    String?
   instagram   String?
@@ -62,7 +62,7 @@ model MentorProfile {
   create_at   DateTime @default(now())
   update_at   DateTime @updatedAt
 
-  users   Users     @relation(fields: [usersId], references: [id])
+  user    Users     @relation(fields: [usersId], references: [id], onDelete: Cascade)
   courses Courses[]
 
   @@map("mentor_profile")
@@ -79,22 +79,22 @@ model Categories {
 }
 
 model Courses {
-  id          Int         @id @default(autoincrement())
-  assistentId Int?
-  mentorId    Int
-  name        String      @unique
-  banner      String
-  intro_video String
-  description String
-  prise       Decimal
-  categoryId  Int
-  level       CourseLevel
-  isActive    Boolean     @default(false)
-  create_at   DateTime    @default(now())
-  update_at   DateTime    @updatedAt
+  id           Int         @id @default(autoincrement())
+  assistentId  Int?
+  mentorId     Int
+  name         String      @unique
+  banner       String
+  intro_video  String
+  description  String
+  prise        Decimal
+  categoryId   Int
+  level        CourseLevel
+  isActive     Boolean     @default(true)
+  create_at    DateTime    @default(now())
+  update_at    DateTime    @updatedAt
 
-  categories    Categories    @relation(fields: [categoryId], references: [id])
-  user          Users?        @relation(fields: [assistentId], references: [id])
+  category      Categories    @relation(fields: [categoryId], references: [id])
+  assistent     Users?        @relation("CourseAssistent", fields: [assistentId], references: [id])
   mentorProfile MentorProfile @relation(fields: [mentorId], references: [id])
   sections      Sections[]
 
@@ -111,32 +111,35 @@ model Sections {
   course  Courses   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   lessons Lessons[]
 
-  @@map("section")
+  @@map("sections")
 }
 
 model Lessons {
-  id          Int         @id @default(autoincrement())
-  name        String      @unique
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
   sectionId   Int
   description String
   file        String
-  create_at   DateTime    @default(now())
-  update_at   DateTime    @updatedAt
-  sections    Sections    @relation(fields: [sectionId], references: [id], onDelete: Cascade)
-  materials   Materials[]
-  homeworks   Homeworks[]
+  create_at   DateTime @default(now())
+  update_at   DateTime @updatedAt
+
+  section   Sections    @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  materials Materials[]
+  homeworks Homeworks[]
+  exams     Exams[]
 
   @@map("lessons")
 }
 
 model Materials {
-  id          Int            @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   lessonId    Int
   description String
-  create_at   DateTime       @default(now())
-  update_at   DateTime       @updatedAt
-  lessons     Lessons        @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  files       MaterialFile[]
+  create_at   DateTime     @default(now())
+  update_at   DateTime     @updatedAt
+
+  lesson Lessons       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  files  MaterialFile[]
 
   @@map("materials")
 }
@@ -149,7 +152,7 @@ model MaterialFile {
 
   material Materials @relation(fields: [materialId], references: [id], onDelete: Cascade)
 
-  @@map("material_file")
+  @@map("material_files")
 }
 
 model Homeworks {
@@ -159,7 +162,8 @@ model Homeworks {
   file        String?
   create_at   DateTime @default(now())
   update_at   DateTime @updatedAt
-  lessons     Lessons  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  lesson Lessons @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 
   @@map("homeworks")
 }
@@ -176,6 +180,8 @@ model Exams {
 
   create_at DateTime @default(now())
   update_at DateTime @updatedAt
+
+  lesson Lessons @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 
   @@map("exams")
 }

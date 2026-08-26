@@ -66,11 +66,11 @@ export class CoursesService {
     async findAllCourses() {
         return this.prisma.courses.findMany({
             include: {
-                categories: true,
+                category: true,
                 mentorProfile: {
-                    include: { users: true },
+                    include: { user: true },
                 },
-                user: true,
+                assistent: true,
                 sections: true,
             },
             orderBy: { create_at: "desc" },
@@ -82,11 +82,11 @@ export class CoursesService {
         return this.prisma.courses.findMany({
             where: { isActive: true },
             include: {
-                categories: true,
+                category: true,
                 mentorProfile: {
-                    include: { users: true },
+                    include: { user: true },
                 },
-                user: true,
+                assistent: true,
                 sections: true,
             },
             orderBy: { create_at: "desc" },
@@ -97,11 +97,11 @@ export class CoursesService {
         const course = await this.prisma.courses.findUnique({
             where: { id },
             include: {
-                categories: true,
+                category: true,
                 mentorProfile: {
-                    include: { users: true },
+                    include: { user: true },
                 },
-                user: true,
+                assistent: true,
                 sections: {
                     include: { lessons: true },
                 },
