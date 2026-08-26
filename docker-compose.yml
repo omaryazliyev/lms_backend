@@ -18,6 +18,8 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    volumes:
+      - uploads_data:/app/src/uploads
     environment:
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-bizler}?schema=public
       SECRET_KEY: ${SECRET_KEY:-my_super_secret_key_123}
@@ -29,3 +31,4 @@ services:
 
 volumes:
   pgdata:
+  uploads_data:
