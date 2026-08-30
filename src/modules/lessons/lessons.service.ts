@@ -70,6 +70,7 @@ export class LessonsService {
                 },
                 materials: { include: { files: true } },
                 homeworks: true,
+                exams: true,
             },
         });
 

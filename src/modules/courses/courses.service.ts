@@ -103,7 +103,17 @@ export class CoursesService {
                 },
                 assistent: true,
                 sections: {
-                    include: { lessons: true },
+                    include: {
+                        lessons: {
+                            include: {
+                                materials: { include: { files: true } },
+                                homeworks: true,
+                                exams: true,
+                            },
+                            orderBy: { create_at: "asc" },
+                        },
+                    },
+                    orderBy: { create_at: "asc" },
                 },
             },
         });
