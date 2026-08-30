@@ -11,7 +11,7 @@ export class CreateExamDto {
 
     @ApiProperty({ example: "React nima?" })
     @IsString()
-    @MinLength(5)
+    @MinLength(1)
     question!: string;
 
     @ApiProperty({ example: "Kutubxona" })

@@ -10,6 +10,6 @@ export class CreateMaterialDto {
 
     @ApiProperty({ example: "Bu dars uchun qo'shimcha PDF qo'llanmalar." })
     @IsString()
-    @MinLength(3)
+    @MinLength(1)
     description!: string;
 }

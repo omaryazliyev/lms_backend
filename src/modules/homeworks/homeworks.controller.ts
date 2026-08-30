@@ -55,7 +55,7 @@ export class HomeworksController {
         FileInterceptor("file", {
             storage: diskStorage({
                 destination: (req, file, cb) => {
-                    const folder = file.mimetype.startsWith("video/") ? "videos" : "images";
+                    const folder = file.mimetype?.startsWith("video/") ? "videos" : "files";
                     const uploadPath = `./src/uploads/${folder}`;
                     if (!fs.existsSync(uploadPath)) {
                         fs.mkdirSync(uploadPath, { recursive: true });
@@ -108,7 +108,7 @@ export class HomeworksController {
         FileInterceptor("file", {
             storage: diskStorage({
                 destination: (req, file, cb) => {
-                    const folder = file.mimetype.startsWith("video/") ? "videos" : "images";
+                    const folder = file.mimetype?.startsWith("video/") ? "videos" : "files";
                     const uploadPath = `./src/uploads/${folder}`;
                     if (!fs.existsSync(uploadPath)) {
                         fs.mkdirSync(uploadPath, { recursive: true });

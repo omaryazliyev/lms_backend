@@ -10,6 +10,6 @@ export class CreateHomeworkDto {
 
     @ApiProperty({ example: "Ushbu vazifada siz quyidagi shartlarni bajarishingiz kerak..." })
     @IsString()
-    @MinLength(5)
+    @MinLength(1)
     description!: string;
 }
