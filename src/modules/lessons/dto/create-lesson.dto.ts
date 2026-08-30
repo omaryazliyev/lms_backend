@@ -15,6 +15,6 @@ export class CreateLessonDto {
 
     @ApiProperty({ example: "Bu darsda dasturlash haqida umumiy tushunchalar beriladi." })
     @IsString()
-    @MinLength(5)
+    @MinLength(1)
     description!: string;
 }

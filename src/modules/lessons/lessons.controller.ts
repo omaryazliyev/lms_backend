@@ -28,6 +28,27 @@ import {
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
 import * as fs from "fs";
+import * as path from "path";
+
+const lessonFileInterceptor = FileInterceptor("file", {
+    limits: { fileSize: 500 * 1024 * 1024 },
+    storage: diskStorage({
+        destination: (req, file, cb) => {
+            const folder = file.mimetype?.startsWith("video/") ? "videos" : "images";
+            const uploadPath = `./src/uploads/${folder}`;
+            if (!fs.existsSync(uploadPath)) {
+                fs.mkdirSync(uploadPath, { recursive: true });
+            }
+            cb(null, uploadPath);
+        },
+        filename: (req, file, cb) => {
+            const ext =
+                path.extname(file.originalname) ||
+                "." + (file.mimetype?.split("/")[1] || "mp4");
+            cb(null, `${Date.now()}${ext}`);
+        },
+    }),
+});
 
 @ApiTags("Lessons")
 @ApiBearerAuth()
@@ -52,24 +73,7 @@ export class LessonsController {
         },
     })
     @Post()
-    @UseInterceptors(
-        FileInterceptor("file", {
-            storage: diskStorage({
-                destination: (req, file, cb) => {
-                    const folder = file.mimetype.startsWith("video/") ? "videos" : "images";
-                    const uploadPath = `./src/uploads/${folder}`;
-                    if (!fs.existsSync(uploadPath)) {
-                        fs.mkdirSync(uploadPath, { recursive: true });
-                    }
-                    cb(null, uploadPath);
-                },
-                filename: (req, file, cb) => {
-                    const filename = new Date().getTime() + "." + file.mimetype.split("/")[1];
-                    cb(null, filename);
-                },
-            }),
-        }),
-    )
+    @UseInterceptors(lessonFileInterceptor)
     createLesson(
         @Body() payload: CreateLessonDto,
         @UploadedFile() file?: Express.Multer.File,
@@ -106,24 +110,7 @@ export class LessonsController {
         },
     })
     @Patch(":id")
-    @UseInterceptors(
-        FileInterceptor("file", {
-            storage: diskStorage({
-                destination: (req, file, cb) => {
-                    const folder = file.mimetype.startsWith("video/") ? "videos" : "images";
-                    const uploadPath = `./src/uploads/${folder}`;
-                    if (!fs.existsSync(uploadPath)) {
-                        fs.mkdirSync(uploadPath, { recursive: true });
-                    }
-                    cb(null, uploadPath);
-                },
-                filename: (req, file, cb) => {
-                    const filename = new Date().getTime() + "." + file.mimetype.split("/")[1];
-                    cb(null, filename);
-                },
-            }),
-        }),
-    )
+    @UseInterceptors(lessonFileInterceptor)
     updateLesson(
         @Param("id", ParseIntPipe) id: number,
         @Body() payload: UpdateLessonDto,
