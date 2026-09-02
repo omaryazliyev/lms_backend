@@ -17,7 +17,7 @@ import * as fs from 'fs';
 export class StudentController {
     constructor(private readonly studentService: StudentService) {}
 
-    @Roles(Role.SUPERADMIN, Role.ADMIN)
+    @Roles(Role.SUPERADMIN, Role.ADMIN, Role.TEACHER)
     @Get()
     findAllStudents() {
         return this.studentService.findAllStudents();

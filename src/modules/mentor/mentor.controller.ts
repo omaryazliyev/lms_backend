@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Req, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { MentorService } from "./mentor.service";
 import { CreateMentorDto } from "./dto/create-mentor.dto";
 import { UpdateMentorDto } from "./dto/update-mentor.dto";
@@ -71,6 +71,13 @@ export class MentorController {
     @Get()
     findAllMentors() {
         return this.mentorService.findAllMentors();
+    }
+
+    @Roles(Role.TEACHER)
+    @ApiOperation({ summary: "Mentor - o'z o'quvchilarini ko'rish" })
+    @Get("my-students")
+    getMyStudents(@Req() req: any) {
+        return this.mentorService.getMyStudents(req.user?.id);
     }
 
     @Roles(Role.SUPERADMIN, Role.ADMIN)

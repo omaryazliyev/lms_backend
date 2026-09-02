@@ -146,4 +146,50 @@ export class MentorService {
             message: "Mentor deleted successfully!"
         };
     }
+
+    async getMyStudents(userId: number) {
+        // Find mentor's MentorProfile(s) by user ID
+        const mentorProfiles = await this.prisma.mentorProfile.findMany({
+            where: { usersId: userId },
+            include: {
+                courses: {
+                    include: {
+                        students: {
+                            select: {
+                                id: true,
+                                full_name: true,
+                                phone: true,
+                                email: true,
+                                file: true,
+                                isPaid: true,
+                                create_at: true,
+                                courseId: true,
+                                course: { select: { id: true, name: true, prise: true } }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Flatten all students across all courses this mentor teaches
+        const studentMap = new Map<number, any>();
+        for (const profile of mentorProfiles) {
+            for (const course of profile.courses) {
+                for (const student of course.students) {
+                    if (!studentMap.has(student.id)) {
+                        studentMap.set(student.id, {
+                            ...student,
+                            course: { id: course.id, name: course.name, prise: course.prise }
+                        });
+                    }
+                }
+            }
+        }
+
+        return {
+            success: true,
+            data: Array.from(studentMap.values())
+        };
+    }
 }
