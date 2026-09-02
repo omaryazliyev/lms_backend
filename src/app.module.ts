@@ -19,6 +19,7 @@ import { ExamsModule } from './modules/exams/exams.module';
 import { UploadsModule } from './modules/uploads/uploads.module';
 import { OtpModule } from './modules/otp/otp.module';
 import { BotModule } from './modules/bot/bot.module';
+import { QuestionsModule } from './modules/questions/questions.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { BotModule } from './modules/bot/bot.module';
     HomeworksModule,
     ExamsModule,
     UploadsModule,
+    QuestionsModule,
   ],
 })
 export class AppModule {}

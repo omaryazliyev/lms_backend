@@ -45,6 +45,8 @@ model Users {
   mentorProfile MentorProfile[]
   assistCourses Courses[]       @relation("CourseAssistent")
   course        Courses?        @relation("StudentCourse", fields: [courseId], references: [id])
+  questions     Questions[]     @relation("StudentQuestions")
+  answers       Questions[]     @relation("MentorAnswers")
 
   @@map("users")
 }
@@ -130,6 +132,7 @@ model Lessons {
   materials Materials[]
   homeworks Homeworks[]
   exams     Exams[]
+  questions Questions[]
 
   @@map("lessons")
 }
@@ -187,4 +190,21 @@ model Exams {
   lesson Lessons @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 
   @@map("exams")
+}
+
+model Questions {
+  id         Int      @id @default(autoincrement())
+  lessonId   Int
+  studentId  Int
+  text       String
+  answer     String?
+  answeredBy Int?
+  create_at  DateTime @default(now())
+  update_at  DateTime @updatedAt
+
+  lesson    Lessons @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  student   Users   @relation("StudentQuestions", fields: [studentId], references: [id], onDelete: Cascade)
+  answerer  Users?  @relation("MentorAnswers", fields: [answeredBy], references: [id])
+
+  @@map("questions")
 }
