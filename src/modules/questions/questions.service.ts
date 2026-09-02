@@ -132,4 +132,35 @@ export class QuestionsService {
         await this.prisma.questions.delete({ where: { id: questionId } });
         return { success: true, message: "Question deleted" };
     }
+
+    // Add follow-up reply in question thread (student or mentor)
+    async replyToQuestion(userId: number, role: string, questionId: number, text: string) {
+        const question = await this.prisma.questions.findUnique({ where: { id: questionId } });
+        if (!question) throw new NotFoundException("Question not found");
+
+        const user = await this.prisma.users.findUnique({ where: { id: userId } });
+        const existingReplies: any[] = Array.isArray(question.replies) ? (question.replies as any[]) : [];
+
+        const newReply = {
+            id: Date.now(),
+            text,
+            senderId: userId,
+            senderRole: role,
+            author: user?.full_name || (role === "STUDENT" ? "O'quvchi" : "Mentor"),
+            time: new Date().toISOString()
+        };
+
+        const updated = await this.prisma.questions.update({
+            where: { id: questionId },
+            data: {
+                replies: [...existingReplies, newReply]
+            },
+            include: {
+                student: { select: { id: true, full_name: true, file: true } },
+                answerer: { select: { id: true, full_name: true, file: true } },
+            }
+        });
+
+        return { success: true, data: updated };
+    }
 }

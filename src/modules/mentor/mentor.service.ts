@@ -163,7 +163,8 @@ export class MentorService {
                                 file: true,
                                 isPaid: true,
                                 create_at: true,
-                                courses: { select: { id: true, name: true, prise: true } }
+                                courseId: true,
+                                course: { select: { id: true, name: true, prise: true } }
                             }
                         }
                     }

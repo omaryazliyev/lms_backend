@@ -54,6 +54,18 @@ export class QuestionsController {
         return this.questionsService.answerQuestion(req.user.id, id, dto);
     }
 
+    // Student or mentor adds follow-up reply to question thread
+    @Roles(Role.STUDENT, Role.TEACHER, Role.ADMIN, Role.SUPERADMIN)
+    @ApiOperation({ summary: "Savolga qo'shimcha javob/xabar yozish" })
+    @Patch(":id/reply")
+    replyQuestion(
+        @Param("id", ParseIntPipe) id: number,
+        @Req() req: any,
+        @Body("text") text: string
+    ) {
+        return this.questionsService.replyToQuestion(req.user.id, req.user.role, id, text);
+    }
+
     // Student deletes their question
     @Roles(Role.STUDENT)
     @ApiOperation({ summary: "Savolni o'chirish" })
