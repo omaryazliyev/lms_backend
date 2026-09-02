@@ -105,6 +105,11 @@ export class StudentService {
             throw new NotFoundException("Student not found with this id");
         }
 
+        // Delete all questions associated with this student
+        await this.prisma.questions.deleteMany({
+            where: { studentId: id }
+        });
+
         await this.prisma.users.delete({
             where: { id }
         });
