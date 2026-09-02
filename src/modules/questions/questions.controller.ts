@@ -15,9 +15,9 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 export class QuestionsController {
     constructor(private readonly questionsService: QuestionsService) {}
 
-    // Student asks a question
-    @Roles(Role.STUDENT)
-    @ApiOperation({ summary: "Student - savol berish" })
+    // Student or any user asks a question
+    @Roles(Role.STUDENT, Role.TEACHER, Role.ADMIN, Role.SUPERADMIN)
+    @ApiOperation({ summary: "Savol berish" })
     @Post()
     createQuestion(@Req() req: any, @Body() dto: CreateQuestionDto) {
         return this.questionsService.createQuestion(req.user.id, dto);

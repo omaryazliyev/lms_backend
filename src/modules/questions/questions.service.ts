@@ -98,10 +98,10 @@ export class QuestionsService {
             }
         }
 
-        if (lessonIds.length === 0) return { success: true, data: [] };
+        const where: any = lessonIds.length > 0 ? { lessonId: { in: lessonIds } } : {};
 
         const questions = await this.prisma.questions.findMany({
-            where: { lessonId: { in: lessonIds } },
+            where,
             include: {
                 student: { select: { id: true, full_name: true, file: true, phone: true } },
                 answerer: { select: { id: true, full_name: true, file: true } },
