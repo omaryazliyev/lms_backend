@@ -12,7 +12,7 @@ export class StudentService {
         return this.prisma.users.findMany({
             where: { role: Role.STUDENT },
             include: {
-                course: {
+                courses: {
                     select: { id: true, name: true, prise: true }
                 }
             }
@@ -88,10 +88,16 @@ export class StudentService {
         });
         if (!student) throw new NotFoundException("Student not found");
 
-        await this.prisma.users.update({
-            where: { id: studentId },
-            data: { courseId: courseId ?? null }
-        });
+        if (courseId) {
+            await this.prisma.users.update({
+                where: { id: studentId },
+                data: {
+                    courses: {
+                        connect: { id: courseId }
+                    }
+                }
+            });
+        }
 
         return { success: true, message: "Kurs muvaffaqiyatli belgilandi!" };
     }
@@ -123,7 +129,7 @@ export class StudentService {
         const student = await this.prisma.users.findFirst({
             where: { id: studentId, role: Role.STUDENT },
             include: {
-                course: {
+                courses: {
                     include: {
                         category: true,
                         mentorProfile: { include: { user: true } },
@@ -138,7 +144,7 @@ export class StudentService {
 
         return {
             success: true,
-            data: student.course ? [student.course] : []
+            data: student.courses || []
         };
     }
 }

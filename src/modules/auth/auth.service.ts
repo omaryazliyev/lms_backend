@@ -122,7 +122,7 @@ export class AuthService {
         password: hashedPassword,
         full_name: dto.full_name,
         role: Role.STUDENT,
-        courseId: dto.courseId ?? null,
+        courses: dto.courseId ? { connect: { id: dto.courseId } } : undefined,
       },
     });
 
